@@ -1,0 +1,65 @@
+aggregates:
+  Order:
+    id:
+      name: Id
+      type: UID
+      arbitrary: true
+    properties:
+      TotalAmount:
+        type: u128
+      Items:
+        itemType: OrderItem
+
+    entities:
+      OrderItem:
+        id:
+          name: ProductId
+          type: String
+        properties:
+          Quantity:
+            type: u64
+          ItemAmount:
+            type: u128
+
+    methods:
+      Create:
+        isCreationCommand: true
+        parameters:
+          Product:
+            referenceType: Product
+            # mutable: false
+            # immutable: true
+            # eventPropertyName: Product
+          Quantity:
+            type: u64
+        event:
+          name: OrderCreated
+          properties:
+            UnitPrice:
+              type: u128
+            TotalAmount:
+              type: u128
+            Owner:
+              type: address
+              isOwner: true # Transfer the object to the account address indicated by this property
+
+      RemoveItem:
+        parameters:
+          ProductId:
+            type: String
+            # eventPropertyName: ProductId
+        event:
+          name: OrderItemRemoved
+#          properties:
+#            Owner:
+#              type: address
+#              isOwner: true # Transfer the object to the account address indicated by this property
+
+      UpdateItemQuantity:
+        parameters:
+          ProductId:
+            type: String
+          Quantity:
+            type: u64
+        event:
+          name: OrderItemQuantityUpdated
