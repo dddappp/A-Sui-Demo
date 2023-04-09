@@ -23,3 +23,5 @@
 hs_err_pid*
 sui-contracts/build
 **/sui.log.20**
+sui-java-service/suitestproj1-service-rest/target
+sui-java-service/suitestproj1-service/target

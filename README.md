@@ -39,14 +39,14 @@ We have placed a Demo application developed using the dddappp low-code tool on G
 
 You can follow the instructions below to reproduce the development process of this Demo.
 
-It should be noted that we assume that you have deployed the Move contracts to the Sui devnet, so we skip the instructions on how to modify certain configuration files required for deployment to other networks.
+It should be noted that we assume that you want to deploy the Move contracts to the Sui devnet, so we skip the instructions on how to modify certain configuration files required for deployment to other networks.
 
 
 ### Write DDDML Model Files
 
 You can create a directory, for example, called `test`, to place all the application code, and then create a subdirectory `dddml` within this directory. We generally put the model files written according to the DDDML specification in this directory.
 
-You can download/copy the sample model files here to the dddml directory: https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/domain-model/sui
+You can download/copy the sample model files here to the `dddml` directory: https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/domain-model/sui
 
 In these models, some of the fabricated examples may have become a bit "absurdly" complicated, but our tool is not "stumped".
 
@@ -100,6 +100,9 @@ If there is no unexpected failure, the compilation should be successful.
 
 At this point, the on-chain contracts cannot be compiled because the "business logic" has not been implemented yet. Now we will implement it.
 
+
+### Implementing Business Logic
+
 The tool has generated some files with the suffix `_logic.move` in the directory `sui-contracts/sources`. These files contain skeleton code of functions that implement business logic, namely the signature part of the functions. Now you just need to fill in the implementation part of the functions.
 
 You can consider copying the implementation code of the business logic that has been written here: https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/sui-contracts/sources
@@ -129,6 +132,13 @@ Then go to the directory `sui-contracts` and compile it, which should be success
 sui move build
 ```
 
+So far, the coding phase of application development is completed! Wasn't it pretty simple?
+
+---
+
+Now, let's move on to deploying and testing the application.
+
+
 ### Publish the Sui contracts
 
 After completing the implementation of the business logic, execute the following command in the directory `sui-contracts` to publish the contracts to the chain:
@@ -152,7 +162,7 @@ Take note of this transaction digest.
 
 > *Note*
 > 
-> We deployed the contracts of this demo application on the Sui Testnet, and the transaction digest of the publication is `4mxSZCAkYwxhGQY79GDHQWFYoa8x3HQiQx4Azn9JbG8b`.
+> We deployed the contracts of this demo application on the Sui testnet, and the transaction digest of the publication is `4mxSZCAkYwxhGQY79GDHQWFYoa8x3HQiQx4Azn9JbG8b`.
 
 
 ### Configuring Off-Chain Service
@@ -203,7 +213,7 @@ mvn -pl suitestproj1-service-rest -am spring-boot:run
 
 After the off-chain services are started, you can access this URL to get a cheatsheet on how to use the Sui Client CLI to call on-chain contracts: http://localhost:1023/api/sui.contract/SuiClientCLICheatsheet.md
 
-In the cheatsheet, the Package Id of the contract you just published and the Object Ids (created according to the Id Generators declared in models) you need when creating certain entities are already filled in for you. The parameters you need to fill in are placeholders containing their type and meaning (name). You can copy these commands, modify them as needed, and execute them directly in a terminal.
+In the cheatsheet, the Package Id of the contracts you just published and the Object Ids (created according to the Id Generators declared in models) you need when creating certain entities are already filled in for you. The parameters you need to fill in are placeholders containing their type and meaning (name). You can copy these commands, modify them as needed, and execute them directly in a terminal.
 
 ### Submitting some test transactions
 
