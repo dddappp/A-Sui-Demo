@@ -345,3 +345,6 @@ Run the command:
 docker rm $(docker ps -aq --filter "ancestor=wubuku/dddappp:0.0.1")
 ```
 
+---
+
+🎉 This project is one of the first round grant recipients of the Sui Foundation (the first one listed): https://sui.io/resources-sui/sui-foundation-round-1-awardees/ 🎉
