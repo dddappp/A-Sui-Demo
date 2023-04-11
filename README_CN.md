@@ -2,6 +2,8 @@
 
 [English](README.md) | 中文
 
+> 🎉 本项目是获得 Sui 基金会的第一轮 grant 的项目之一（列表中的第一个）：https://sui.io/resources-sui/sui-foundation-round-1-awardees/ 🎉
+
 ## Prerequisites
 
 目前 dddappp 低代码工具以 Docker 镜像的方式发布，供开发者体验。
@@ -349,6 +351,3 @@ DDDML 是一种基于 YAML 的 DSL，而 YAML 是 JSON 的超集，所以 JSON S
 docker rm $(docker ps -aq --filter "ancestor=wubuku/dddappp:0.0.1")
 ```
 
----
-
-🎉 本项目是获得 Sui 基金会的第一轮 grant 的项目之一（列表中的第一个）：https://sui.io/resources-sui/sui-foundation-round-1-awardees/ 🎉
