@@ -5,21 +5,21 @@
 
 package org.test.suitestproj1.config;
 
-import org.test.suitestproj1.domain.daysummary.*;
-import org.test.suitestproj1.domain.*;
-import org.test.suitestproj1.domain.daysummary.hibernate.*;
-import org.test.suitestproj1.domain.domainname.*;
-import org.test.suitestproj1.domain.*;
-import org.test.suitestproj1.domain.domainname.hibernate.*;
-import org.test.suitestproj1.domain.order.*;
-import org.test.suitestproj1.domain.*;
-import org.test.suitestproj1.domain.order.hibernate.*;
 import org.test.suitestproj1.domain.orderv2.*;
 import org.test.suitestproj1.domain.*;
 import org.test.suitestproj1.domain.orderv2.hibernate.*;
 import org.test.suitestproj1.domain.product.*;
 import org.test.suitestproj1.domain.*;
 import org.test.suitestproj1.domain.product.hibernate.*;
+import org.test.suitestproj1.domain.domainname.*;
+import org.test.suitestproj1.domain.*;
+import org.test.suitestproj1.domain.domainname.hibernate.*;
+import org.test.suitestproj1.domain.daysummary.*;
+import org.test.suitestproj1.domain.*;
+import org.test.suitestproj1.domain.daysummary.hibernate.*;
+import org.test.suitestproj1.domain.order.*;
+import org.test.suitestproj1.domain.*;
+import org.test.suitestproj1.domain.order.hibernate.*;
 import org.test.suitestproj1.specialization.AggregateEventListener;
 import org.test.suitestproj1.specialization.EventStore;
 import org.test.suitestproj1.specialization.IdGenerator;
@@ -31,148 +31,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AggregatesHibernateConfig {
-
-
-    @Bean
-    public DaySummaryStateRepository daySummaryStateRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateDaySummaryStateRepository repository = new HibernateDaySummaryStateRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public DaySummaryStateQueryRepository daySummaryStateQueryRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateDaySummaryStateQueryRepository repository = new HibernateDaySummaryStateQueryRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public HibernateDaySummaryEventStore daySummaryEventStore(SessionFactory hibernateSessionFactory) {
-        HibernateDaySummaryEventStore eventStore = new HibernateDaySummaryEventStore();
-        eventStore.setSessionFactory(hibernateSessionFactory);
-        return eventStore;
-    }
-
-    @Bean
-    public AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService daySummaryApplicationService(
-            @Qualifier("daySummaryEventStore") EventStore daySummaryEventStore,
-            DaySummaryStateRepository daySummaryStateRepository,
-            DaySummaryStateQueryRepository daySummaryStateQueryRepository
-    ) {
-        AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService applicationService = new AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService(
-                daySummaryEventStore,
-                daySummaryStateRepository,
-                daySummaryStateQueryRepository
-        );
-        return applicationService;
-    }
-
-
-
-    @Bean
-    public DomainNameStateRepository domainNameStateRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateDomainNameStateRepository repository = new HibernateDomainNameStateRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public DomainNameStateQueryRepository domainNameStateQueryRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateDomainNameStateQueryRepository repository = new HibernateDomainNameStateQueryRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public HibernateDomainNameEventStore domainNameEventStore(SessionFactory hibernateSessionFactory) {
-        HibernateDomainNameEventStore eventStore = new HibernateDomainNameEventStore();
-        eventStore.setSessionFactory(hibernateSessionFactory);
-        return eventStore;
-    }
-
-    @Bean
-    public AbstractDomainNameApplicationService.SimpleDomainNameApplicationService domainNameApplicationService(
-            @Qualifier("domainNameEventStore") EventStore domainNameEventStore,
-            DomainNameStateRepository domainNameStateRepository,
-            DomainNameStateQueryRepository domainNameStateQueryRepository
-    ) {
-        AbstractDomainNameApplicationService.SimpleDomainNameApplicationService applicationService = new AbstractDomainNameApplicationService.SimpleDomainNameApplicationService(
-                domainNameEventStore,
-                domainNameStateRepository,
-                domainNameStateQueryRepository
-        );
-        return applicationService;
-    }
-
-
-
-    @Bean
-    public OrderItemEventDao orderItemEventDao(SessionFactory hibernateSessionFactory) {
-        HibernateOrderItemEventDao dao = new HibernateOrderItemEventDao();
-        dao.setSessionFactory(hibernateSessionFactory);
-        return dao;
-    }
-
-    @Bean
-    public OrderStateRepository orderStateRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateOrderStateRepository repository = new HibernateOrderStateRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public OrderStateQueryRepository orderStateQueryRepository(
-            SessionFactory hibernateSessionFactory,
-            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
-    ) {
-        HibernateOrderStateQueryRepository repository = new HibernateOrderStateQueryRepository();
-        repository.setSessionFactory(hibernateSessionFactory);
-        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
-        return repository;
-    }
-
-    @Bean
-    public HibernateOrderEventStore orderEventStore(SessionFactory hibernateSessionFactory) {
-        HibernateOrderEventStore eventStore = new HibernateOrderEventStore();
-        eventStore.setSessionFactory(hibernateSessionFactory);
-        return eventStore;
-    }
-
-    @Bean
-    public AbstractOrderApplicationService.SimpleOrderApplicationService orderApplicationService(
-            @Qualifier("orderEventStore") EventStore orderEventStore,
-            OrderStateRepository orderStateRepository,
-            OrderStateQueryRepository orderStateQueryRepository
-    ) {
-        AbstractOrderApplicationService.SimpleOrderApplicationService applicationService = new AbstractOrderApplicationService.SimpleOrderApplicationService(
-                orderEventStore,
-                orderStateRepository,
-                orderStateQueryRepository
-        );
-        return applicationService;
-    }
-
 
 
     @Bean
@@ -287,6 +145,148 @@ public class AggregatesHibernateConfig {
                 productEventStore,
                 productStateRepository,
                 productStateQueryRepository
+        );
+        return applicationService;
+    }
+
+
+
+    @Bean
+    public DomainNameStateRepository domainNameStateRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateDomainNameStateRepository repository = new HibernateDomainNameStateRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public DomainNameStateQueryRepository domainNameStateQueryRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateDomainNameStateQueryRepository repository = new HibernateDomainNameStateQueryRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public HibernateDomainNameEventStore domainNameEventStore(SessionFactory hibernateSessionFactory) {
+        HibernateDomainNameEventStore eventStore = new HibernateDomainNameEventStore();
+        eventStore.setSessionFactory(hibernateSessionFactory);
+        return eventStore;
+    }
+
+    @Bean
+    public AbstractDomainNameApplicationService.SimpleDomainNameApplicationService domainNameApplicationService(
+            @Qualifier("domainNameEventStore") EventStore domainNameEventStore,
+            DomainNameStateRepository domainNameStateRepository,
+            DomainNameStateQueryRepository domainNameStateQueryRepository
+    ) {
+        AbstractDomainNameApplicationService.SimpleDomainNameApplicationService applicationService = new AbstractDomainNameApplicationService.SimpleDomainNameApplicationService(
+                domainNameEventStore,
+                domainNameStateRepository,
+                domainNameStateQueryRepository
+        );
+        return applicationService;
+    }
+
+
+
+    @Bean
+    public DaySummaryStateRepository daySummaryStateRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateDaySummaryStateRepository repository = new HibernateDaySummaryStateRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public DaySummaryStateQueryRepository daySummaryStateQueryRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateDaySummaryStateQueryRepository repository = new HibernateDaySummaryStateQueryRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public HibernateDaySummaryEventStore daySummaryEventStore(SessionFactory hibernateSessionFactory) {
+        HibernateDaySummaryEventStore eventStore = new HibernateDaySummaryEventStore();
+        eventStore.setSessionFactory(hibernateSessionFactory);
+        return eventStore;
+    }
+
+    @Bean
+    public AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService daySummaryApplicationService(
+            @Qualifier("daySummaryEventStore") EventStore daySummaryEventStore,
+            DaySummaryStateRepository daySummaryStateRepository,
+            DaySummaryStateQueryRepository daySummaryStateQueryRepository
+    ) {
+        AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService applicationService = new AbstractDaySummaryApplicationService.SimpleDaySummaryApplicationService(
+                daySummaryEventStore,
+                daySummaryStateRepository,
+                daySummaryStateQueryRepository
+        );
+        return applicationService;
+    }
+
+
+
+    @Bean
+    public OrderItemEventDao orderItemEventDao(SessionFactory hibernateSessionFactory) {
+        HibernateOrderItemEventDao dao = new HibernateOrderItemEventDao();
+        dao.setSessionFactory(hibernateSessionFactory);
+        return dao;
+    }
+
+    @Bean
+    public OrderStateRepository orderStateRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateOrderStateRepository repository = new HibernateOrderStateRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public OrderStateQueryRepository orderStateQueryRepository(
+            SessionFactory hibernateSessionFactory,
+            ReadOnlyProxyGenerator stateReadOnlyProxyGenerator
+    ) {
+        HibernateOrderStateQueryRepository repository = new HibernateOrderStateQueryRepository();
+        repository.setSessionFactory(hibernateSessionFactory);
+        repository.setReadOnlyProxyGenerator(stateReadOnlyProxyGenerator);
+        return repository;
+    }
+
+    @Bean
+    public HibernateOrderEventStore orderEventStore(SessionFactory hibernateSessionFactory) {
+        HibernateOrderEventStore eventStore = new HibernateOrderEventStore();
+        eventStore.setSessionFactory(hibernateSessionFactory);
+        return eventStore;
+    }
+
+    @Bean
+    public AbstractOrderApplicationService.SimpleOrderApplicationService orderApplicationService(
+            @Qualifier("orderEventStore") EventStore orderEventStore,
+            OrderStateRepository orderStateRepository,
+            OrderStateQueryRepository orderStateQueryRepository
+    ) {
+        AbstractOrderApplicationService.SimpleOrderApplicationService applicationService = new AbstractOrderApplicationService.SimpleOrderApplicationService(
+                orderEventStore,
+                orderStateRepository,
+                orderStateQueryRepository
         );
         return applicationService;
     }

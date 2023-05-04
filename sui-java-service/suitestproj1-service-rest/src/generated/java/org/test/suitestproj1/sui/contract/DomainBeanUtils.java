@@ -9,15 +9,6 @@ import java.math.*;
 
 import com.github.wubuku.sui.bean.MoveEvent;
 import com.github.wubuku.sui.bean.SuiMoveEventEnvelope;
-import org.test.suitestproj1.domain.daysummary.AbstractDaySummaryEvent;
-import org.test.suitestproj1.sui.contract.daysummary.DaySummaryCreated;
-import org.test.suitestproj1.domain.domainname.AbstractDomainNameEvent;
-import org.test.suitestproj1.sui.contract.domainname.Registered;
-import org.test.suitestproj1.sui.contract.domainname.Renewed;
-import org.test.suitestproj1.domain.order.AbstractOrderEvent;
-import org.test.suitestproj1.sui.contract.order.OrderCreated;
-import org.test.suitestproj1.sui.contract.order.OrderItemRemoved;
-import org.test.suitestproj1.sui.contract.order.OrderItemQuantityUpdated;
 import org.test.suitestproj1.domain.orderv2.AbstractOrderV2Event;
 import org.test.suitestproj1.sui.contract.orderv2.OrderV2Created;
 import org.test.suitestproj1.sui.contract.orderv2.OrderV2ItemRemoved;
@@ -29,6 +20,15 @@ import org.test.suitestproj1.sui.contract.orderv2.OrderShipGroupItemRemoved;
 import org.test.suitestproj1.sui.contract.orderv2.OrderShipGroupRemoved;
 import org.test.suitestproj1.domain.product.AbstractProductEvent;
 import org.test.suitestproj1.sui.contract.product.ProductCreated;
+import org.test.suitestproj1.domain.domainname.AbstractDomainNameEvent;
+import org.test.suitestproj1.sui.contract.domainname.Registered;
+import org.test.suitestproj1.sui.contract.domainname.Renewed;
+import org.test.suitestproj1.domain.daysummary.AbstractDaySummaryEvent;
+import org.test.suitestproj1.sui.contract.daysummary.DaySummaryCreated;
+import org.test.suitestproj1.domain.order.AbstractOrderEvent;
+import org.test.suitestproj1.sui.contract.order.OrderCreated;
+import org.test.suitestproj1.sui.contract.order.OrderItemRemoved;
+import org.test.suitestproj1.sui.contract.order.OrderItemQuantityUpdated;
 
 public class DomainBeanUtils {
     private DomainBeanUtils() {
@@ -119,133 +119,6 @@ public class DomainBeanUtils {
     }
 
 
-    public static AbstractDaySummaryEvent.DaySummaryCreated toDaySummaryCreated(SuiMoveEventEnvelope<DaySummaryCreated> eventEnvelope) {
-        DaySummaryCreated contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractDaySummaryEvent.DaySummaryCreated daySummaryCreated = new AbstractDaySummaryEvent.DaySummaryCreated();
-        daySummaryCreated.setDay(DomainBeanUtils.toDay(contractEvent.getDay()));
-        daySummaryCreated.setId_(contractEvent.getId());
-        daySummaryCreated.setDescription(contractEvent.getDescription());
-        daySummaryCreated.setMetaData(contractEvent.getMetaData());
-        daySummaryCreated.setArrayData(contractEvent.getArrayData());
-        daySummaryCreated.setOptionalData(contractEvent.getOptionalData());
-        daySummaryCreated.setVersion(BigInteger.valueOf(-1));
-
-        daySummaryCreated.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        daySummaryCreated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        daySummaryCreated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        daySummaryCreated.setSuiPackageId(eventEnvelope.getPackageId());
-        daySummaryCreated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        daySummaryCreated.setSuiSender(eventEnvelope.getSender());
-
-        return daySummaryCreated;
-    }
-
-    public static AbstractDomainNameEvent.Registered toRegistered(SuiMoveEventEnvelope<Registered> eventEnvelope) {
-        Registered contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractDomainNameEvent.Registered registered = new AbstractDomainNameEvent.Registered();
-        registered.setDomainNameId(DomainBeanUtils.toDomainNameId(contractEvent.getDomainNameId()));
-        registered.setId_(contractEvent.getId());
-        registered.setRegistrationPeriod(contractEvent.getRegistrationPeriod());
-        registered.setOwner(contractEvent.getOwner());
-        registered.setVersion(BigInteger.valueOf(-1));
-
-        registered.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        registered.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        registered.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        registered.setSuiPackageId(eventEnvelope.getPackageId());
-        registered.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        registered.setSuiSender(eventEnvelope.getSender());
-
-        return registered;
-    }
-
-    public static AbstractDomainNameEvent.Renewed toRenewed(SuiMoveEventEnvelope<Renewed> eventEnvelope) {
-        Renewed contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractDomainNameEvent.Renewed renewed = new AbstractDomainNameEvent.Renewed();
-        renewed.setDomainNameId(DomainBeanUtils.toDomainNameId(contractEvent.getDomainNameId()));
-        renewed.setId_(contractEvent.getId());
-        renewed.setRenewPeriod(contractEvent.getRenewPeriod());
-        renewed.setAccount(contractEvent.getAccount());
-        renewed.setVersion(contractEvent.getVersion());
-
-        renewed.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        renewed.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        renewed.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        renewed.setSuiPackageId(eventEnvelope.getPackageId());
-        renewed.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        renewed.setSuiSender(eventEnvelope.getSender());
-
-        return renewed;
-    }
-
-    public static AbstractOrderEvent.OrderCreated toOrderCreated(SuiMoveEventEnvelope<OrderCreated> eventEnvelope) {
-        OrderCreated contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractOrderEvent.OrderCreated orderCreated = new AbstractOrderEvent.OrderCreated();
-        orderCreated.setId(contractEvent.getId());
-        orderCreated.setProduct(contractEvent.getProduct());
-        orderCreated.setQuantity(contractEvent.getQuantity());
-        orderCreated.setUnitPrice(contractEvent.getUnitPrice());
-        orderCreated.setTotalAmount(contractEvent.getTotalAmount());
-        orderCreated.setOwner(contractEvent.getOwner());
-        orderCreated.setVersion(BigInteger.valueOf(-1));
-
-        orderCreated.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        orderCreated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderCreated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        orderCreated.setSuiPackageId(eventEnvelope.getPackageId());
-        orderCreated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        orderCreated.setSuiSender(eventEnvelope.getSender());
-
-        return orderCreated;
-    }
-
-    public static AbstractOrderEvent.OrderItemRemoved toOrderItemRemoved(SuiMoveEventEnvelope<OrderItemRemoved> eventEnvelope) {
-        OrderItemRemoved contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractOrderEvent.OrderItemRemoved orderItemRemoved = new AbstractOrderEvent.OrderItemRemoved();
-        orderItemRemoved.setId(contractEvent.getId());
-        orderItemRemoved.setProductId(contractEvent.getProductId());
-        orderItemRemoved.setVersion(contractEvent.getVersion());
-
-        orderItemRemoved.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        orderItemRemoved.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderItemRemoved.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        orderItemRemoved.setSuiPackageId(eventEnvelope.getPackageId());
-        orderItemRemoved.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        orderItemRemoved.setSuiSender(eventEnvelope.getSender());
-
-        return orderItemRemoved;
-    }
-
-    public static AbstractOrderEvent.OrderItemQuantityUpdated toOrderItemQuantityUpdated(SuiMoveEventEnvelope<OrderItemQuantityUpdated> eventEnvelope) {
-        OrderItemQuantityUpdated contractEvent = eventEnvelope.getParsedJson();
-
-        AbstractOrderEvent.OrderItemQuantityUpdated orderItemQuantityUpdated = new AbstractOrderEvent.OrderItemQuantityUpdated();
-        orderItemQuantityUpdated.setId(contractEvent.getId());
-        orderItemQuantityUpdated.setProductId(contractEvent.getProductId());
-        orderItemQuantityUpdated.setQuantity(contractEvent.getQuantity());
-        orderItemQuantityUpdated.setVersion(contractEvent.getVersion());
-
-        orderItemQuantityUpdated.setSuiTimestamp(eventEnvelope.getTimestampMs());
-        orderItemQuantityUpdated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderItemQuantityUpdated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
-
-        orderItemQuantityUpdated.setSuiPackageId(eventEnvelope.getPackageId());
-        orderItemQuantityUpdated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
-        orderItemQuantityUpdated.setSuiSender(eventEnvelope.getSender());
-
-        return orderItemQuantityUpdated;
-    }
-
     public static AbstractOrderV2Event.OrderV2Created toOrderV2Created(SuiMoveEventEnvelope<OrderV2Created> eventEnvelope) {
         OrderV2Created contractEvent = eventEnvelope.getParsedJson();
 
@@ -261,7 +134,7 @@ public class DomainBeanUtils {
 
         orderV2Created.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderV2Created.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderV2Created.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderV2Created.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderV2Created.setSuiPackageId(eventEnvelope.getPackageId());
         orderV2Created.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -281,7 +154,7 @@ public class DomainBeanUtils {
 
         orderV2ItemRemoved.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderV2ItemRemoved.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderV2ItemRemoved.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderV2ItemRemoved.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderV2ItemRemoved.setSuiPackageId(eventEnvelope.getPackageId());
         orderV2ItemRemoved.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -302,7 +175,7 @@ public class DomainBeanUtils {
 
         orderV2ItemQuantityUpdated.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderV2ItemQuantityUpdated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderV2ItemQuantityUpdated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderV2ItemQuantityUpdated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderV2ItemQuantityUpdated.setSuiPackageId(eventEnvelope.getPackageId());
         orderV2ItemQuantityUpdated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -322,7 +195,7 @@ public class DomainBeanUtils {
 
         orderV2EstimatedShipDateUpdated.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderV2EstimatedShipDateUpdated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderV2EstimatedShipDateUpdated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderV2EstimatedShipDateUpdated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderV2EstimatedShipDateUpdated.setSuiPackageId(eventEnvelope.getPackageId());
         orderV2EstimatedShipDateUpdated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -345,7 +218,7 @@ public class DomainBeanUtils {
 
         orderShipGroupAdded.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderShipGroupAdded.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderShipGroupAdded.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderShipGroupAdded.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderShipGroupAdded.setSuiPackageId(eventEnvelope.getPackageId());
         orderShipGroupAdded.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -367,7 +240,7 @@ public class DomainBeanUtils {
 
         orderShipGroupQuantityCanceled.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderShipGroupQuantityCanceled.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderShipGroupQuantityCanceled.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderShipGroupQuantityCanceled.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderShipGroupQuantityCanceled.setSuiPackageId(eventEnvelope.getPackageId());
         orderShipGroupQuantityCanceled.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -388,7 +261,7 @@ public class DomainBeanUtils {
 
         orderShipGroupItemRemoved.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderShipGroupItemRemoved.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderShipGroupItemRemoved.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderShipGroupItemRemoved.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderShipGroupItemRemoved.setSuiPackageId(eventEnvelope.getPackageId());
         orderShipGroupItemRemoved.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -408,7 +281,7 @@ public class DomainBeanUtils {
 
         orderShipGroupRemoved.setSuiTimestamp(eventEnvelope.getTimestampMs());
         orderShipGroupRemoved.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        orderShipGroupRemoved.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        orderShipGroupRemoved.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         orderShipGroupRemoved.setSuiPackageId(eventEnvelope.getPackageId());
         orderShipGroupRemoved.setSuiTransactionModule(eventEnvelope.getTransactionModule());
@@ -429,13 +302,140 @@ public class DomainBeanUtils {
 
         productCreated.setSuiTimestamp(eventEnvelope.getTimestampMs());
         productCreated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
-        productCreated.setSuiEventSeq(eventEnvelope.getId().getEventSeq());
+        productCreated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
 
         productCreated.setSuiPackageId(eventEnvelope.getPackageId());
         productCreated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
         productCreated.setSuiSender(eventEnvelope.getSender());
 
         return productCreated;
+    }
+
+    public static AbstractDomainNameEvent.Registered toRegistered(SuiMoveEventEnvelope<Registered> eventEnvelope) {
+        Registered contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractDomainNameEvent.Registered registered = new AbstractDomainNameEvent.Registered();
+        registered.setDomainNameId(DomainBeanUtils.toDomainNameId(contractEvent.getDomainNameId()));
+        registered.setId_(contractEvent.getId());
+        registered.setRegistrationPeriod(contractEvent.getRegistrationPeriod());
+        registered.setOwner(contractEvent.getOwner());
+        registered.setVersion(BigInteger.valueOf(-1));
+
+        registered.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        registered.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        registered.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        registered.setSuiPackageId(eventEnvelope.getPackageId());
+        registered.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        registered.setSuiSender(eventEnvelope.getSender());
+
+        return registered;
+    }
+
+    public static AbstractDomainNameEvent.Renewed toRenewed(SuiMoveEventEnvelope<Renewed> eventEnvelope) {
+        Renewed contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractDomainNameEvent.Renewed renewed = new AbstractDomainNameEvent.Renewed();
+        renewed.setDomainNameId(DomainBeanUtils.toDomainNameId(contractEvent.getDomainNameId()));
+        renewed.setId_(contractEvent.getId());
+        renewed.setRenewPeriod(contractEvent.getRenewPeriod());
+        renewed.setAccount(contractEvent.getAccount());
+        renewed.setVersion(contractEvent.getVersion());
+
+        renewed.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        renewed.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        renewed.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        renewed.setSuiPackageId(eventEnvelope.getPackageId());
+        renewed.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        renewed.setSuiSender(eventEnvelope.getSender());
+
+        return renewed;
+    }
+
+    public static AbstractDaySummaryEvent.DaySummaryCreated toDaySummaryCreated(SuiMoveEventEnvelope<DaySummaryCreated> eventEnvelope) {
+        DaySummaryCreated contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractDaySummaryEvent.DaySummaryCreated daySummaryCreated = new AbstractDaySummaryEvent.DaySummaryCreated();
+        daySummaryCreated.setDay(DomainBeanUtils.toDay(contractEvent.getDay()));
+        daySummaryCreated.setId_(contractEvent.getId());
+        daySummaryCreated.setDescription(contractEvent.getDescription());
+        daySummaryCreated.setMetaData(contractEvent.getMetaData());
+        daySummaryCreated.setArrayData(contractEvent.getArrayData());
+        daySummaryCreated.setOptionalData(contractEvent.getOptionalData());
+        daySummaryCreated.setVersion(BigInteger.valueOf(-1));
+
+        daySummaryCreated.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        daySummaryCreated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        daySummaryCreated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        daySummaryCreated.setSuiPackageId(eventEnvelope.getPackageId());
+        daySummaryCreated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        daySummaryCreated.setSuiSender(eventEnvelope.getSender());
+
+        return daySummaryCreated;
+    }
+
+    public static AbstractOrderEvent.OrderCreated toOrderCreated(SuiMoveEventEnvelope<OrderCreated> eventEnvelope) {
+        OrderCreated contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractOrderEvent.OrderCreated orderCreated = new AbstractOrderEvent.OrderCreated();
+        orderCreated.setId(contractEvent.getId());
+        orderCreated.setProduct(contractEvent.getProduct());
+        orderCreated.setQuantity(contractEvent.getQuantity());
+        orderCreated.setUnitPrice(contractEvent.getUnitPrice());
+        orderCreated.setTotalAmount(contractEvent.getTotalAmount());
+        orderCreated.setOwner(contractEvent.getOwner());
+        orderCreated.setVersion(BigInteger.valueOf(-1));
+
+        orderCreated.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        orderCreated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        orderCreated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        orderCreated.setSuiPackageId(eventEnvelope.getPackageId());
+        orderCreated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        orderCreated.setSuiSender(eventEnvelope.getSender());
+
+        return orderCreated;
+    }
+
+    public static AbstractOrderEvent.OrderItemRemoved toOrderItemRemoved(SuiMoveEventEnvelope<OrderItemRemoved> eventEnvelope) {
+        OrderItemRemoved contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractOrderEvent.OrderItemRemoved orderItemRemoved = new AbstractOrderEvent.OrderItemRemoved();
+        orderItemRemoved.setId(contractEvent.getId());
+        orderItemRemoved.setProductId(contractEvent.getProductId());
+        orderItemRemoved.setVersion(contractEvent.getVersion());
+
+        orderItemRemoved.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        orderItemRemoved.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        orderItemRemoved.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        orderItemRemoved.setSuiPackageId(eventEnvelope.getPackageId());
+        orderItemRemoved.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        orderItemRemoved.setSuiSender(eventEnvelope.getSender());
+
+        return orderItemRemoved;
+    }
+
+    public static AbstractOrderEvent.OrderItemQuantityUpdated toOrderItemQuantityUpdated(SuiMoveEventEnvelope<OrderItemQuantityUpdated> eventEnvelope) {
+        OrderItemQuantityUpdated contractEvent = eventEnvelope.getParsedJson();
+
+        AbstractOrderEvent.OrderItemQuantityUpdated orderItemQuantityUpdated = new AbstractOrderEvent.OrderItemQuantityUpdated();
+        orderItemQuantityUpdated.setId(contractEvent.getId());
+        orderItemQuantityUpdated.setProductId(contractEvent.getProductId());
+        orderItemQuantityUpdated.setQuantity(contractEvent.getQuantity());
+        orderItemQuantityUpdated.setVersion(contractEvent.getVersion());
+
+        orderItemQuantityUpdated.setSuiTimestamp(eventEnvelope.getTimestampMs());
+        orderItemQuantityUpdated.setSuiTxDigest(eventEnvelope.getId().getTxDigest());
+        orderItemQuantityUpdated.setSuiEventSeq(new BigInteger(eventEnvelope.getId().getEventSeq()));
+
+        orderItemQuantityUpdated.setSuiPackageId(eventEnvelope.getPackageId());
+        orderItemQuantityUpdated.setSuiTransactionModule(eventEnvelope.getTransactionModule());
+        orderItemQuantityUpdated.setSuiSender(eventEnvelope.getSender());
+
+        return orderItemQuantityUpdated;
     }
 
 }
