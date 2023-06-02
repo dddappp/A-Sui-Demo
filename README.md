@@ -162,10 +162,6 @@ BZXe8c5nBjoyacUJTkcfoLgFuU9xWRksAMSfaEU3XrSM
 ```
 Take note of this transaction digest.
 
-> *Note*
-> 
-> We deployed the contracts of this demo application on the Sui testnet, and the transaction digest of the publication is `4mxSZCAkYwxhGQY79GDHQWFYoa8x3HQiQx4Azn9JbG8b`.
-
 
 ### Configuring Off-Chain Service
 

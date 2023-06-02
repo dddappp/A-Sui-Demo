@@ -165,10 +165,6 @@ BZXe8c5nBjoyacUJTkcfoLgFuU9xWRksAMSfaEU3XrSM
 
 记下这个交易摘要。
 
-> *说明*
-> 
-> 我们在 Sui testnet 上部署了这个 Demo 应用的合约，发布交易摘要为 `4mxSZCAkYwxhGQY79GDHQWFYoa8x3HQiQx4Azn9JbG8b`。
-
 ### 配置链下服务
 
 打开位于目录 `sui-java-service/suitestproj1-service-rest/src/main/resources` 下的 `application-test.yml` 文件，设置发布的交易摘要。设置之后类似这样：
