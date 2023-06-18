@@ -30,6 +30,9 @@ import org.test.suitestproj1.sui.contract.order.OrderCreated;
 import org.test.suitestproj1.sui.contract.order.OrderItemRemoved;
 import org.test.suitestproj1.sui.contract.order.OrderItemQuantityUpdated;
 
+/**
+ * Utils that convert beans in the contract package to domain beans.
+ */
 public class DomainBeanUtils {
     private DomainBeanUtils() {
     }
