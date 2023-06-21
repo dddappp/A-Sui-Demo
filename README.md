@@ -2,8 +2,6 @@
 
 English | [中文](README_CN.md)
 
-> 🎉 This project is one of the first round grant recipients of the Sui Foundation (the first one listed): https://sui.io/resources-sui/sui-foundation-round-1-awardees/ 🎉
-
 ## Prerequisites
 
 Currently, the dddappp low-code tool is published as a Docker image for developers to experience.
