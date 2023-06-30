@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-## Prerequisites
+## 前提条件
 
 目前 dddappp 低代码工具以 Docker 镜像的方式发布，供开发者体验。
 
