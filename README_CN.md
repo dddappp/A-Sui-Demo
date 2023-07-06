@@ -35,12 +35,18 @@ sudo docker run -p 3306:3306 --name mysql \
 我们在 GitHub 上放置了一个使用 dddappp 低代码工具开发的 Demo 应用。这个应用的代码分为两部分：
 
 * Sui Move 链上合约：https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/sui_contracts
-
 * Java 链下服务：https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/sui-java-service
 
 你可以按照下面的介绍重现该 Demo 的开发过程。
 
 需要说明的是，下面我们假设你将 Move 合约发布到 Sui devnet 上，所以略过如发布到其他网络所需的对某些配置文件的修改的说明。
+
+> **提示**
+>
+> 本 Demo 使用的数据模型相当复杂，而且，需要你“编写”一些业务逻辑（虽然你可能只是需要拷贝粘贴一下它们）。
+>
+> 如果你的业务需求只是对一些数据模型进行 CRUD（Create、Read、Update、Delete），那么，这个例子可能更适合你来参考：
+> https://github.com/dddappp/sui-blog-example
 
 ### 编写 DDDML 模型文件
 
@@ -78,23 +84,14 @@ wubuku/dddappp:0.0.1 \
 上面的命令参数很直白：
 
 * 注意将 `/PATH/TO/test` 替换为你实际放置应用代码的本机目录的路径。这一行表示将该本机目录挂载到容器内的 `/myapp` 目录。
-
-* dddmlDirectoryPath 是 DDDML 模型文件所在的目录。它应该是容器内可以读取的目录路径。
-
-* 把参数 boundedContextName 的值理解为你要开发的应用的名称即可。名称有多个部分时请使用点号分隔，每个部分使用 PascalCase 命名风格。Bounded-context 是领域驱动设计（DDD）中的一个术语，指的是一个特定的问题域范围，包含了特定的业务边界、约束和语言，这个概念你暂时不能理解也没有太大的关系。
-
-* boundedContextJavaPackageName 是链下服务的 Java 包名。按照 Java 的命名规范，它应该全小写、各部分以点号分隔。
-
-* boundedContextSuiPackageName 是链上 Sui 合约的包名。按照 Sui 的开发规范，它应该采用全小写的 snake_case 命名风格。
-
-* javaProjectsDirectoryPath 是放置链下服务代码的目录路径。链下服务由多个模块（项目）组成。它应该使用容器内的可以读写的目录路径。
-
-* javaProjectNamePrefix 是组成链下服务的各模块的名称前缀。建议使用一个全小写的名称。
-
-* pomGroupId 链下服务的 GroupId，我们使用 Maven 作为链下服务的项目管理工具。它应该全小写、各部分以点号分隔。
-
-* suiMoveProjectDirectoryPath 是放置链上 Sui 合约代码的目录路径。它应该使用容器内可以读写的目录路径。
-
+* `dddmlDirectoryPath` 是 DDDML 模型文件所在的目录。它应该是容器内可以读取的目录路径。
+* 把参数 `boundedContextName` 的值理解为你要开发的应用的名称即可。名称有多个部分时请使用点号分隔，每个部分使用 PascalCase 命名风格。Bounded-context 是领域驱动设计（DDD）中的一个术语，指的是一个特定的问题域范围，包含了特定的业务边界、约束和语言，这个概念你暂时不能理解也没有太大的关系。
+* `boundedContextJavaPackageName` 是链下服务的 Java 包名。按照 Java 的命名规范，它应该全小写、各部分以点号分隔。
+* `boundedContextSuiPackageName` 是链上 Sui 合约的包名。按照 Sui 的开发规范，它应该采用全小写的 snake_case 命名风格。
+* `javaProjectsDirectoryPath` 是放置链下服务代码的目录路径。链下服务由多个模块（项目）组成。它应该使用容器内的可以读写的目录路径。
+* `javaProjectNamePrefix` 是组成链下服务的各模块的名称前缀。建议使用一个全小写的名称。
+* `pomGroupId` 链下服务的 GroupId，我们使用 Maven 作为链下服务的项目管理工具。它应该全小写、各部分以点号分隔。
+* `suiMoveProjectDirectoryPath` 是放置链上 Sui 合约代码的目录路径。它应该使用容器内可以读写的目录路径。
 
 上面的命令执行成功后，在本地目录 `/PATH/TO/test` 下应该会增加两个目录 `sui-java-service` 和 `sui-contracts`。
 

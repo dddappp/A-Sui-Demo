@@ -34,12 +34,18 @@ sudo docker run -p 3306:3306 --name mysql \
 We have placed a Demo application developed using the dddappp low-code tool on GitHub. The application code is divided into two parts:
 
 * Sui Move on-chain contracts: https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/sui_contracts
-
 * Java off-chain service: https://github.com/wubuku/Dapp-LCDP-Demo/tree/main/sui-java-service
 
 You can follow the instructions below to reproduce the development process of this Demo.
 
 It should be noted that we assume that you want to deploy the Move contracts to the Sui devnet, so we skip the instructions on how to modify certain configuration files required for deployment to other networks.
+
+> **Tip**
+>
+> The data models used in this demo are quite complex and require you to "write" some business logic (although you may just need to copy and paste them). 
+> 
+> If your business requirements are only to perform CRUD (Create, Read, Update, Delete) on some data models, then, this example may be more suitable for your reference:
+> https://github.com/dddappp/sui-blog-example
 
 
 ### Write DDDML Model Files
@@ -77,21 +83,13 @@ wubuku/dddappp:0.0.1 \
 The command parameters above are straightforward:
 
 * Note that `/PATH/TO/test` should be replaced with the path of the local directory where you actually place the application code. This line indicates mounting the local directory into the `/myapp` directory inside the container.
-
 * `dddmlDirectoryPath` is the directory where the DDDML model files are located. It should be a directory path that can be read in the container.
-
 * Understand the value of the `boundedContextName` parameter as the name of the application you want to develop. When the name has multiple parts, separate them with dots and use the PascalCase naming convention for each part. Bounded-context is a term in Domain-driven design (DDD) that refers to a specific problem domain scope that contains specific business boundaries, constraints, and language. If you cannot understand this concept for the time being, it is not a big deal.
-
 * `boundedContextJavaPackageName` is the Java package name of the off-chain service. According to Java naming conventions, it should be all lowercase and the parts should be separated by dots.
-
 * `boundedContextSuiPackageName` is the package name of the on-chain Sui contracts. According to the Sui development convention, it should be named in snake_case style with all lowercase letters.
-
 * `javaProjectsDirectoryPath` is the directory path where the off-chain service code is placed. The off-chain service consists of multiple modules (projects). It should be a readable and writable directory path in the container.
-
 * `javaProjectNamePrefix` is the name prefix of each module of the off-chain service. It is recommended to use an all-lowercase name.
-
 * `pomGroupId` is the GroupId of the off-chain service. We use Maven as the project management tool for off-chain service. It should be all lowercase and the parts should be separated by dots.
-
 * `suiMoveProjectDirectoryPath` is the directory path where the on-chain Sui contract code is placed. It should be a readable and writable directory path in the container.
 
 After the above command is successfully executed, two directories `sui-java-service` and `sui-contracts` should be added to the local directory `/PATH/TO/test`.
