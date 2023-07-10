@@ -309,7 +309,11 @@ For example, in VS Code's `.vscode/settings.json` file, you can set it up like t
 }
 ```
 
-A more advanced idea is to train an AI model to help us write DDDML code.
+### GUI Modeling Tool or AI-assisted Modeling?
+
+Our previous idea, our next step, was to initiate the development of a graphical modeling tool.
+
+However, we now have a further idea, which is to train AI and let AI help us write DDDML code. We think that this might be a better direction.
 
 ### Adding More Support for DDDML Specification
 
